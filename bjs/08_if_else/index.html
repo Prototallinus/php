@@ -15,30 +15,34 @@
         <div class="col col-md-4 offset-md-4">
             <div id="game" class="card text-center">
                 <div class="card-header">
-                    <p class="m-0">Вопрос №<span id="orderNumberField">5</span></p>
+                    <p class="m-0">Вопрос № <span id="orderNumberField"> 0</span></p><br>
                 </div>
                 <div class="card-body">
                     <div class="row no-gutters">
                         <div class="col">
-                            <h3 class="card-title m-0"><span id="answerField">Я всё загадываю</span></h3>
+                            <h3 class="card-title m-0"><span id="answerField">Я любое число загадываю</span><br></h3>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row no-gutters">
                         <div id="divform" class="col">
-                            <form id = "form"> 
-                                <label for="MinMax">
-                                    Минимальное знание числа для игры: 
-                                </label>
+                            <form action="/action_page.php" id = "form"> 
+                                <label for="MinMax">числа для игры: </label><br>
                                 <label>Min</label>
                                 <input type="text" id="Min" name="Edge" value=0 placeholder="Выберите число MIN" required><br>
                                 <label>Max</label>
                                 <input type="text" id="Max" name="Edge" value=100 placeholder="Выберите число MAX" required><br>
                                 <span class="validity"></span>
-                                
                             </form>
                             <button onclick="assign()" id="btnSubmit">Submit</button> 
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row no-gutters">
+                        <div id = description class ="col">
+                            <span id="dispRange">Min = <span id="dispMin"></span> | Max = <span id="dispMax"></span></span><br>
                         </div>
                     </div>
                 </div>

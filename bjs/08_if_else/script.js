@@ -1,5 +1,6 @@
-let minValue = 0;
-let maxValue = 0;
+document.getElementById("description").style.display = 'none'; 
+let minValue;
+let maxValue;
 let answerNumber;
 let answerNumberToWord;
 
@@ -7,17 +8,18 @@ let stringUnits = '';
 let stringDecades = '';
 let stringHundreds = '';
 
-let orderNumber = 1;
-let gameRun = true;
+let orderNumber = 0;
+let gameRun;
 let mustRetry = false;
 let gameSolved=false;
 let index = 0;
 
 function assign(){
 
-    maxValue = parseInt(document.getElementById("Max").value);
+    gameRun = true;
     minValue = parseInt(document.getElementById("Min").value);
-
+    maxValue = parseInt(document.getElementById("Max").value);
+    
     minValue = (minValue < -999) ? minValue = -999: minValue;
     if (minValue >= 999 || isNaN(minValue) || (typeof(minValue) != "number") || (minValue == ("Infinity"||"-Infinity") ) ) {
         minValue = 0;
@@ -28,14 +30,19 @@ function assign(){
         maxValue = (minValue >= 0) ? maxValue = minValue+100: maxValue = 100;
     }
 
-    document.getElementById("divform").innerHTML = "";
+    document.getElementById("divform").style.display ='none';
+    document.getElementById("description").style.display ='inline';
+    const dispMin = document.getElementById('dispMin');
+    dispMin.innerText = minValue;
+    const dispMax = document.getElementById('dispMax');
+    dispMax.innerText = maxValue;
 
     answerNumber  = Math.floor((minValue + maxValue) / 2);
     answerNumberToWord = toWord(answerNumber);
 
     const orderNumberField = document.getElementById('orderNumberField');
     const answerField = document.getElementById('answerField');
-
+    orderNumber = 1;
     orderNumberField.innerText = orderNumber;
     answerField.innerText = `Вы загадали число ${answerNumberToWord }?`;
 
@@ -44,11 +51,15 @@ function assign(){
 
 document.getElementById('btnRetry').addEventListener('click', function () {
     location.reload();
+    const firstInput = document.getElementById("Min");
+    firstInput.value = "0";
+    const secondInput = document.getElementById("Max");
+    secondInput.value = "100";
 })
 
 document.getElementById('btnOver').addEventListener('click', function () {
     if (gameRun){
-        if (minValue === maxValue){
+        if (minValue === maxValue || answerNumber  + 1 > maxValue){
             const phraseRandom = Math.round( Math.random());
             const answerPhrase = (phraseRandom === 1) ?
                 `Вы загадали неправильное число!\n\u{1F914}` :
@@ -79,7 +90,7 @@ document.getElementById('btnOver').addEventListener('click', function () {
 
 document.getElementById('btnLess').addEventListener('click', function () {
     if (gameRun){
-        if (minValue === maxValue){
+        if (minValue === maxValue || answerNumber  - 1 < minValue){
             const phraseRandom = Math.round( Math.random());
             const answerPhrase = (phraseRandom === 1) ?
                 `Вы загадали неправильное число!\n\u{1F914}` :
@@ -109,7 +120,7 @@ document.getElementById('btnLess').addEventListener('click', function () {
 })
 
 function solution() {
-    if (mustRetry==false) {
+    if (mustRetry==false && orderNumber > 0) {
         gameSolved=true;
         index+=1;
         if (gameSolved){
@@ -277,53 +288,3 @@ function toWord(answerNumber) {
         return (`${sign} ${stringHundreds} ${stringDecades} ${stringUnits}`.replace(/\s+/g, ' ').trim());
     }
 }
-
-
-
-/* INTERESTING CODE FOUND ON THE INTERNET
-// American Numbering System
-var th = ['','thousand','million', 'billion','trillion'];
-// uncomment this line for English Number System
-// var th = ['','thousand','million', 'milliard','billion'];
- 
-var dg = ['zero','one','two','three','four','five','six','seven','eight','nine']; 
-var tn = ['ten','eleven','twelve','thirteen', 'fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
-var tw = ['twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety']; 
-
-function toWords(s){
-     s = s.toString(); 
-     s = s.replace(/[\, ]/g,'');
-     if (s != parseFloat(s)) return 'not a number';
-     var x = s.indexOf('.'); 
-     if (x == -1) x = s.length; 
-     if (x > 15) return 'too big';
-     var n = s.split(''); 
-     var str = ''; 
-     var sk = 0; 
-     for (var i=0; i < x; i++) {
-         if ((x-i)%3==2) {
-             if (n[i] == '1') {
-                 str += tn[Number(n[i+1])] + ' '; 
-                 i++; 
-                 sk=1;
-            }
-            else if (n[i]!=0) {
-                str += tw[n[i]-2] + ' ';
-                sk=1;
-            }
-        } else if (n[i]!=0) {
-            str += dg[n[i]] +' '; 
-            if ((x-i)%3==0) str += 'hundred ';
-            sk=1;
-        }
-        if ((x-i)%3==1) {
-            if (sk) str += th[(x-i-1)/3] + ' ';sk=0;
-        }
-    } 
-    if (x != s.length) {
-        var y = s.length; 
-        str += 'point '; 
-        for (var i=x+1; istr.replace(/\s+/g,' ');
-    }
-} 
-*/
