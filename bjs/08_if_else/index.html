@@ -7,12 +7,13 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="container">
     <div class="row game-card align-items-center">
         <div class="col col-md-4 offset-md-4">
-            <div class="card text-center">
+            <div id="game" class="card text-center">
                 <div class="card-header">
                     <p class="m-0">Вопрос №<span id="orderNumberField">5</span></p>
                 </div>
@@ -25,18 +26,19 @@
                 </div>
                 <div class="card-body">
                     <div class="row no-gutters">
-                        <div class="col">
-                            <form id = "form" onsubmit="assign(this)"> 
-                                <!-- <p id="error" hidden>Номер не был введен. Будет выбрано значение по умолчанию.</p>
-                                <p id="error2" hidden>Это слишком низко. Будет выбрано значение по умолчанию.</p>
-                                <p id="error3" hidden>Это слишком большое. Будет выбрано значение по умолчанию.</p> -->
+                        <div id="divform" class="col">
+                            <form id = "form"> 
                                 <label for="MinMax">
                                     Минимальное знание числа для игры: 
                                 </label>
-                                <input type="text" id="MinMax" name="Edge" placeholder="Выберите число" required>
+                                <label>Min</label>
+                                <input type="text" id="Min" name="Edge" value=0 placeholder="Выберите число MIN" required><br>
+                                <label>Max</label>
+                                <input type="text" id="Max" name="Edge" value=100 placeholder="Выберите число MAX" required><br>
                                 <span class="validity"></span>
-                                <button type = "submit" id="btnSubmit">Submit</button> 
+                                
                             </form>
+                            <button onclick="assign()" id="btnSubmit">Submit</button> 
                         </div>
                     </div>
                 </div>

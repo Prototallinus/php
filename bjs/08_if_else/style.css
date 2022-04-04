@@ -2,3 +2,17 @@
     height: 100vh;
     font-family: 'Open Sans', monospace;
 }
+
+#divform input{
+    width: 100%;
+}
+
+#btnSubmit{
+    border-radius: 10px;
+    width: 150px;
+    margin-top: 15px;
+}
+
+#game{
+    width: fit-content
+}
